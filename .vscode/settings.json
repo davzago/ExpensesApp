@@ -1,6 +1,0 @@
-{
-    "python.envFile": "${workspaceFolder}/env",
-    "files.associations": {
-        "python.defaultInterpreterPath": "Backend/.expenceAppvenv/bin/python"
-    }
-}
