@@ -16,6 +16,8 @@ def create_account(account: AccountModel, session: session):
     session.refresh(db_account)
     return db_account
 
+# @account_router
+
 
 
 # @router.get("/users/me", tags=["users"])

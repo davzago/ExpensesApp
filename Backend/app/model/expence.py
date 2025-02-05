@@ -1,12 +1,16 @@
 from sqlmodel import SQLModel, Field
-import datetime
+from datetime import date
+from typing import Optional
 
-class Expence(SQLModel, table=True):
-    __tablename__ = "t_expence"
-    
-    id: int = Field(primary_key=True)
+class Expence(SQLModel):
     username: str
     category: str
     exp_description: str
     exp_amount: float
-    exp_date: datetime
+    exp_date: date
+
+
+class ExpenceModel(Expence, table=True):
+    __tablename__ = "t_expence"
+    
+    id: Optional[int] = Field(default=None, primary_key=True)
