@@ -1,18 +1,18 @@
 from fastapi import FastAPI
+from contextlib import asynccontextmanager
 
 from .routers import account_router
 from .routers import expence_router
 from .dependencies import create_db_and_tables
 
-app = FastAPI()
-
-# Code above omitted 👆
-
-app = FastAPI()
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Startup code
     create_db_and_tables()
+    yield
+    # Shutdown code (if needed)
+
+app = FastAPI(lifespan=lifespan)
 
 # Code below omitted 👇
 
