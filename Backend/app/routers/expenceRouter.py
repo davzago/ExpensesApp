@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from ..model.expence import Expence, ExpenceModel
+from ..entity.expence import Expence, ExpenceModel
 from ..dependencies.session import session
 
 expence_router = APIRouter(

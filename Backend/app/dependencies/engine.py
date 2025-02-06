@@ -1,9 +1,12 @@
-from sqlmodel import create_engine, SQLModel
+from sqlalchemy import create_engine
+from sqlalchemy.orm import Session
+from sqlalchemy.ext.declarative import declarative_base
 
 postgres_url = "postgresql://exp_own:exp_own@localhost:5090/expencedb"
 
-engine = create_engine(postgres_url, echo=True)
+engine = create_engine(postgres_url)
 
-def create_db_and_tables():
-    SQLModel.metadata.create_all(engine)
+Base = declarative_base()
+
+
 

@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from ..model.account import Account, AccountModel
+from ..entity.account import Account
+from ..dto.accountDto import AccountIn, AccountOut
 from ..dependencies.session import session
 
 account_router = APIRouter(
@@ -8,13 +9,13 @@ account_router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@account_router.post("/create", response_model=Account)
-def create_account(account: AccountModel, session: session):
-    db_account = AccountModel.model_validate(account)
+@account_router.post("/create")
+def create_account(account: AccountIn, session: session):
+    db_account = Account(username=account.username, password=account.password)
     session.add(db_account)
     session.commit()
     session.refresh(db_account)
-    return db_account
+    return AccountOut(username=db_account.username)
 
 # @account_router
 
