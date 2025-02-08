@@ -1,8 +1,6 @@
-from pydantic import BaseModel
+from sqlmodel import SQLModel
 
-class AccountIn(BaseModel):
+class AccountIn(SQLModel):
     username: str
+    mail: str
     password: str
-
-class AccountOut(BaseModel):
-    username: str

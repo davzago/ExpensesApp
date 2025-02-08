@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends
-from ..entity.expence import Expence, ExpenceModel
+from ..entity.expence import ExpenceEntity
+from ..dto.expenceDto import ExpenceIn
 from ..dependencies.session import session
 
 expence_router = APIRouter(
@@ -8,9 +9,9 @@ expence_router = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@expence_router.post("/add", response_model=Expence)
-def add_expence(expence: Expence, session: session):
-    db_expence = ExpenceModel.model_validate(expence)
+@expence_router.post("/add", response_model=ExpenceEntity)
+def add_expence(expence: ExpenceIn, session: session):
+    db_expence = ExpenceEntity.model_validate(expence)
     session.add(db_expence)
     session.commit()
     session.refresh(db_expence)
