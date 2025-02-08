@@ -1,6 +1,8 @@
 from sqlmodel import SQLModel, Field, Relationship
 from typing import Optional, List, TYPE_CHECKING
 
+from ..dependencies.hash import hash_context
+
 
 if TYPE_CHECKING:
     from .expence import ExpenceEntity 
@@ -15,6 +17,12 @@ class AccountEntity(Account, table=True):
     password: str
 
     expences: List["ExpenceEntity"] = Relationship(back_populates="account")
+
+
+
+def hash_password(password: str):
+    return hash_context.hash(password)
+    
 
 
 

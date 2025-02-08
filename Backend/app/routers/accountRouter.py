@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from ..entity.account import AccountEntity, Account
+from ..entity.account import AccountEntity, Account, hash_password
 from ..dto.accountDto import AccountIn
 from ..dependencies.session import session
 
@@ -11,6 +11,7 @@ account_router = APIRouter(
 
 @account_router.post("/create")
 def create_account(account: AccountIn, session: session):
+    account.password = hash_password(account.password)
     db_account = AccountEntity.model_validate(account)
     session.add(db_account)
     session.commit()
