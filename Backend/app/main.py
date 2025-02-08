@@ -1,14 +1,14 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
+from sqlmodel import SQLModel
 
 from .routers import account_router
 from .routers import expence_router
-from .dependencies.engine import Base, engine
+from .dependencies.engine import  engine
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup code
-    Base.metadata.create_all(engine)
+    SQLModel.metadata.create_all(engine)
     yield
     # Shutdown code (if needed)
 
