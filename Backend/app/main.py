@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from sqlmodel import SQLModel
 
 from .routers import account_router
-from .routers import expence_router
+from .routers import expense_router
 from .dependencies.engine import  engine
 
 @asynccontextmanager
@@ -16,4 +16,4 @@ app = FastAPI(lifespan=lifespan)
 
 
 app.include_router(account_router)
-app.include_router(expence_router)
+app.include_router(expense_router)

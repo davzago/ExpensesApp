@@ -6,7 +6,7 @@
 --     primary key(username)
 -- );
 
--- create table t_expence (
+-- create table t_expense (
 --     id bigserial primary key,
 --     username varchar(20) not null references t_account (username), 
 --     category varchar(20) null,

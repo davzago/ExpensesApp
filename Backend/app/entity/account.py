@@ -5,7 +5,7 @@ from ..dependencies.hash import hash_context
 
 
 if TYPE_CHECKING:
-    from .expence import ExpenceEntity 
+    from .expense import ExpenseEntity 
 
 class Account(SQLModel):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -16,7 +16,7 @@ class AccountEntity(Account, table=True):
     __tablename__ = 't_account'
     password: str
 
-    expences: List["ExpenceEntity"] = Relationship(back_populates="account")
+    expenses: List["ExpenseEntity"] = Relationship(back_populates="account")
 
 
 
