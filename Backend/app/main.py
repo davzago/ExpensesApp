@@ -4,6 +4,7 @@ from sqlmodel import SQLModel
 
 from .routers import account_router
 from .routers import expense_router
+from .routers import auth_router
 from .dependencies.engine import  engine
 
 @asynccontextmanager
@@ -14,6 +15,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-
+app.include_router(auth_router)
 app.include_router(account_router)
 app.include_router(expense_router)

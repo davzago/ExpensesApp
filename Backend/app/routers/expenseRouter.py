@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from typing import List
-from sqlmodel import select, where
+from sqlmodel import select
 from ..entity.expense import ExpenseEntity
 from ..dto import ExpenseIn
 from ..dependencies.session import session
@@ -29,11 +29,12 @@ def get_expense(account_id: int, session: session, limit: int = 20, offset: int 
 
 
 @expense_router.post("/update/{expense_id}")
-def update_update(expense_id: int, updated_expense: ExpenseIn):
-    db_expense = session.select(ExpenseEntity).where(ExpenseEntity.id == expense_id)
+def update_update(expense_id: int, updated_expense: ExpenseIn, session: session):
+    statement = select(ExpenseEntity).where(ExpenseEntity.id == expense_id)
+    db_expense = session.exec(statement).first()
     if not db_expense:
         raise HTTPException(404, "No Expense Found")
-    updated_expense = update_expense(db_expense, update_expense())
+    updated_expense = update_expense(db_expense, updated_expense)
     session.add(updated_expense)
     session.commit()
     session.refresh(updated_expense)
@@ -42,10 +43,10 @@ def update_update(expense_id: int, updated_expense: ExpenseIn):
 
 
 
-def update_expense(old_expese: ExpenseEntity, new_expense: ExpenseIn):
-    old_expese.category = new_expense.category
-    old_expese.exp_amount = new_expense.exp_amount
-    old_expese.exp_date = new_expense.exp_date
-    old_expese.exp_description = new_expense.exp_description
-    return old_expese
+def update_expense(old_expense: ExpenseEntity, new_expense: ExpenseIn):
+    old_expense.category = new_expense.category
+    old_expense.exp_amount = new_expense.exp_amount
+    old_expense.exp_date = new_expense.exp_date
+    old_expense.exp_description = new_expense.exp_description
+    return old_expense
 
