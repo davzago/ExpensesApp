@@ -1,2 +1,2 @@
-from .account import Account, AccountEntity, hash_password
+from .account import Account, AccountEntity
 from .expense import ExpenseEntity

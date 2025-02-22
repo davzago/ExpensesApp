@@ -7,4 +7,3 @@ class ExpenseIn(SQLModel):
     exp_description: Optional[str]
     exp_amount: float
     exp_date: date
-    account_id: int

@@ -1,7 +1,9 @@
+import imp
 from fastapi import APIRouter, Depends
-from ..entity.account import AccountEntity, Account, hash_password
+from ..entity.account import AccountEntity, Account
 from ..dto.accountDto import AccountIn
 from ..dependencies.session import session
+from ..dependencies.hash import hash_password
 
 account_router = APIRouter(
     prefix="/account",
