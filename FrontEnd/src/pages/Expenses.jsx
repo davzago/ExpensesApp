@@ -73,9 +73,11 @@ export default function Expenses() {
           </select>
           <input
             name="timestamp"
-            type="datetime-local"
+            type="text"
             value={form.timestamp}
             onChange={handleChange}
+            placeholder="YYYY-MM-DD HH:mm"
+            pattern="\d{4}-\d{2}-\d{2} \d{2}:\d{2}"
             required
           />
           <input
