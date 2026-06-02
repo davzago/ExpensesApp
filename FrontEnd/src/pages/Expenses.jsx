@@ -72,12 +72,17 @@ export default function Expenses() {
             ))}
           </select>
           <input
-            name="timestamp"
-            type="text"
-            value={form.timestamp}
-            onChange={handleChange}
-            placeholder="YYYY-MM-DD HH:mm"
-            pattern="\d{4}-\d{2}-\d{2} \d{2}:\d{2}"
+            name="date"
+            type="date"
+            value={form.timestamp.slice(0, 10)}
+            onChange={(e) => setForm((p) => ({ ...p, timestamp: e.target.value + ' ' + p.timestamp.slice(11) }))}
+            required
+          />
+          <input
+            name="time"
+            type="time"
+            value={form.timestamp.slice(11)}
+            onChange={(e) => setForm((p) => ({ ...p, timestamp: p.timestamp.slice(0, 10) + ' ' + e.target.value }))}
             required
           />
           <input
