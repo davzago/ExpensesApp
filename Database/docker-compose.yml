@@ -4,9 +4,7 @@ services:
     env_file:
       - test.env
     volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-      # - ./pgdata:/var/lib/postgresql/data
+      # - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ${PGDATA_HOST_PATH:-../data/expense/test}:/var/lib/postgresql/data
     ports:
-      - "5090:5432"
-
-
+      - "5090:5090"
