@@ -2,3 +2,11 @@
 *.expenceAppEnv*
 *.vscode*
 *.venv*
+
+# environment files
+.env
+.env.test
+.env.local
+
+# Docker
+pgdata/

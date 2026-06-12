@@ -1,0 +1,25 @@
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - test.env
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5090:5090"
+
+  backend:
+    build: ./Backend
+    env_file: .env.test
+    ports:
+      - "${BACKEND_PORT:-8000}:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./FrontEnd
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
